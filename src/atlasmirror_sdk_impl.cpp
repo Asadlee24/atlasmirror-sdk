@@ -8,13 +8,13 @@
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 
-AtlasMirrorSdkImpl::AtlasMirrorSdkImpl(QObject *parent)
+AtlasmirrorSdkImpl::AtlasmirrorSdkImpl(QObject *parent)
     : QObject(parent)
 {
     loadPredefinedCatalog();
 }
 
-void AtlasMirrorSdkImpl::loadPredefinedCatalog()
+void AtlasmirrorSdkImpl::loadPredefinedCatalog()
 {
     // Initialize standard predefined 72 regions from LP-0018
     QStringList paths = {
@@ -115,7 +115,7 @@ void AtlasMirrorSdkImpl::loadPredefinedCatalog()
     }
 }
 
-QJsonArray AtlasMirrorSdkImpl::discoverRegions()
+QJsonArray AtlasmirrorSdkImpl::discoverRegions()
 {
     QJsonArray array;
     for (auto it = m_catalog.constBegin(); it != m_catalog.constEnd(); ++it) {
@@ -124,7 +124,7 @@ QJsonArray AtlasMirrorSdkImpl::discoverRegions()
     return array;
 }
 
-QJsonObject AtlasMirrorSdkImpl::getRegion(const QString &path)
+QJsonObject AtlasmirrorSdkImpl::getRegion(const QString &path)
 {
     if (m_catalog.contains(path)) {
         return m_catalog[path];
@@ -134,7 +134,7 @@ QJsonObject AtlasMirrorSdkImpl::getRegion(const QString &path)
     return err;
 }
 
-QJsonObject AtlasMirrorSdkImpl::getByCid(const QString &cid)
+QJsonObject AtlasmirrorSdkImpl::getByCid(const QString &cid)
 {
     if (cid.trimmed().isEmpty()) {
         QJsonObject err;
@@ -151,7 +151,7 @@ QJsonObject AtlasMirrorSdkImpl::getByCid(const QString &cid)
     return err;
 }
 
-QJsonArray AtlasMirrorSdkImpl::getChildren(const QString &parent)
+QJsonArray AtlasmirrorSdkImpl::getChildren(const QString &parent)
 {
     QJsonArray children;
     for (auto it = m_catalog.constBegin(); it != m_catalog.constEnd(); ++it) {
@@ -162,7 +162,7 @@ QJsonArray AtlasMirrorSdkImpl::getChildren(const QString &parent)
     return children;
 }
 
-QJsonObject AtlasMirrorSdkImpl::resolveRegion(const QString &path)
+QJsonObject AtlasmirrorSdkImpl::resolveRegion(const QString &path)
 {
     QJsonObject res;
     if (!m_catalog.contains(path)) {
@@ -187,7 +187,7 @@ QJsonObject AtlasMirrorSdkImpl::resolveRegion(const QString &path)
     return res;
 }
 
-QJsonObject AtlasMirrorSdkImpl::checkUpdate(const QString &path)
+QJsonObject AtlasmirrorSdkImpl::checkUpdate(const QString &path)
 {
     QJsonObject res;
     if (!m_catalog.contains(path)) {
@@ -207,7 +207,7 @@ QJsonObject AtlasMirrorSdkImpl::checkUpdate(const QString &path)
     return res;
 }
 
-QJsonObject AtlasMirrorSdkImpl::hostRegion(const QString &path)
+QJsonObject AtlasmirrorSdkImpl::hostRegion(const QString &path)
 {
     QJsonObject res;
     if (!m_catalog.contains(path)) {
@@ -231,7 +231,7 @@ QJsonObject AtlasMirrorSdkImpl::hostRegion(const QString &path)
     return res;
 }
 
-bool AtlasMirrorSdkImpl::downloadRegion(const QString &path, const QString &destination)
+bool AtlasmirrorSdkImpl::downloadRegion(const QString &path, const QString &destination)
 {
     if (!m_catalog.contains(path)) {
         return false;
@@ -259,7 +259,7 @@ bool AtlasMirrorSdkImpl::downloadRegion(const QString &path, const QString &dest
     return f.exists() && f.size() > 0;
 }
 
-QJsonObject AtlasMirrorSdkImpl::importLocal(const QString &path, const QString &localFilePath)
+QJsonObject AtlasmirrorSdkImpl::importLocal(const QString &path, const QString &localFilePath)
 {
     QJsonObject res;
     if (!m_catalog.contains(path)) {
@@ -294,7 +294,7 @@ QJsonObject AtlasMirrorSdkImpl::importLocal(const QString &path, const QString &
     return res;
 }
 
-QJsonObject AtlasMirrorSdkImpl::batchRegister(const QJsonArray &records)
+QJsonObject AtlasmirrorSdkImpl::batchRegister(const QJsonArray &records)
 {
     QJsonObject res;
     if (records.isEmpty()) {

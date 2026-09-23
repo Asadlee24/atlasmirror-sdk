@@ -12,13 +12,13 @@
  * In the universal authoring model of logos-module-builder, this class
  * exposes the stable API for Basecamp applications and external modules.
  */
-class AtlasMirrorSdkImpl : public QObject
+class AtlasmirrorSdkImpl : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit AtlasMirrorSdkImpl(QObject *parent = nullptr);
-    virtual ~AtlasMirrorSdkImpl() = default;
+    explicit AtlasmirrorSdkImpl(QObject *parent = nullptr);
+    virtual ~AtlasmirrorSdkImpl() = default;
 
     /**
      * @brief Discovers all regions in the predefined non-overlapping set.
