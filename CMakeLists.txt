@@ -1,22 +1,23 @@
-cmake_minimum_required(VERSION 3.22)
-project(atlasmirror_sdk VERSION 0.1.0 LANGUAGES CXX)
+# AtlasMirror Core SDK Module CMakeLists.txt
+# Built with official logos-module-builder universal interface generator
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_AUTOMOC ON)
+cmake_minimum_required(VERSION 3.14)
+project(AtlasMirrorSdkPlugin LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Network)
+if(DEFINED ENV{LOGOS_MODULE_BUILDER_ROOT})
+    include($ENV{LOGOS_MODULE_BUILDER_ROOT}/cmake/LogosModule.cmake)
+elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/LogosModule.cmake")
+    include(cmake/LogosModule.cmake)
+else()
+    message(FATAL_ERROR "LogosModule.cmake not found")
+endif()
 
-add_library(atlasmirror_sdk_plugin SHARED
-    src/atlasmirror_sdk_impl.cpp
-    src/atlasmirror_sdk_impl.h
-)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/metadata.json" METADATA_JSON)
+string(JSON MODULE_NAME GET ${METADATA_JSON} name)
 
-target_include_directories(atlasmirror_sdk_plugin PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-target_link_libraries(atlasmirror_sdk_plugin PRIVATE
-    Qt6::Core
-    Qt6::Network
+logos_module(
+    NAME ${MODULE_NAME}
+    SOURCES
+        src/atlasmirror_sdk_impl.h
+        src/atlasmirror_sdk_impl.cpp
 )
